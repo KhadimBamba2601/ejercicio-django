@@ -1,0 +1,20 @@
+version: '3.8'  # Especifica la versión de Docker Compose
+
+services:
+  web:
+    build: .  # Construye la imagen desde el Dockerfile en el directorio actual
+    ports:
+      - "8000:8000"  # Mapea el puerto 8000 del contenedor al puerto 8000 del host
+    depends_on:
+      - db  # Indica que el servicio "web" depende del servicio "db"
+  db:
+    image: postgres:13  # Utiliza la imagen de PostgreSQL versión 13
+    environment:
+      POSTGRES_USER: tu_usuario
+      POSTGRES_PASSWORD: tu_contraseña
+      POSTGRES_DB: tu_base_de_datos
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Define un volumen para persistir los datos de la base de datos
+
+volumes:
+  db_data:  # Define el volumen llamado "db_data"
